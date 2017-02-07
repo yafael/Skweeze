@@ -1,11 +1,8 @@
 package watson_wrapper;
 import java.io.IOException;
 
-public class NLC_Wrapper {
-	@SuppressWarnings("unused")
-	private Credentials creds;
-	
+public class NLC_Wrapper extends WatsonWrapper {
 	public NLC_Wrapper() throws IOException{
-		creds = Credentials.loadCreds("credentials/nlc_cred");
+		super("credentials/nlc_cred");
 	}
 }
