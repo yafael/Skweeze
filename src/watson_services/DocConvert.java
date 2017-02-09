@@ -1,4 +1,4 @@
-package doc_conversion;
+package watson_services;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
