@@ -20,8 +20,8 @@ education_title = 'Education'
 education_codes = 'JobCategoryCode=1702,1710,1720,1730,1740,1701,1750,1712'
 engineering_and_architect_title = 'Engineering And Architect'
 engineering_and_architect_codes = 'JobCategoryCode=0861,0890,0808,0858,0893,0810,0854,0809,0850,0855,0856,0899,0802,0819,0804,0801,0896,0807,0806,0830,0880,0871,0840,0881,0803,0817'
-food_preparation_and_serving_title = 'Food Preparation And Serving'
-food_preparation_and_serving_codes = 'JobCategoryCode=7405,7404,7408,7407,7401,7420'
+#food_preparation_and_serving_title = 'Food Preparation And Serving'
+#food_preparation_and_serving_codes = 'JobCategoryCode=7405,7404,7408,7407,7401,7420'
 information_technology_title = 'Information Technology'
 information_technology_codes = 'JobCategoryCode=2210,2299'
 inspection_investigation_title = 'Inspection, Investigation'
@@ -41,8 +41,8 @@ transportation_mobile_equipment_maintenance_codes = 'JobCategoryCode=5823,5876,5
 
 category_dict = {accounting_budget_and_finance_title: accounting_budget_and_finance_codes, biological_sciences_title: biological_sciences_codes,
   business_industry_and_programs_title: business_industry_and_programs_codes, education_title: education_codes,
-  engineering_and_architect_title: engineering_and_architect_codes, food_preparation_and_serving_title: food_preparation_and_serving_codes,
-  information_technology_title: information_technology_codes, inspection_investigation_title: inspection_investigation_codes,
+  engineering_and_architect_title: engineering_and_architect_codes, information_technology_title: information_technology_codes, 
+  inspection_investigation_title: inspection_investigation_codes, 
   management_administrative_and_clerical_services_title: management_administrative_and_clerical_services_codes, 
   medical_dental_and_public_health_title: medical_dental_and_public_health_codes, safety_health_and_physical_title: safety_health_and_physical_codes,
   social_science_psychologist_title: social_science_psychologist_codes, supply_title: supply_codes,
@@ -65,10 +65,14 @@ def get_category_posting_info(category_code_params, category_title):
     number_of_pages = int(result['SearchResult']['UserArea']['NumberOfPages'])
     result_items = result['SearchResult']['SearchResultItems']
     
+    number_of_results = 0
     for page in range(1,number_of_pages+1):
         for item in result_items:
             qualifications = item['MatchedObjectDescriptor']['QualificationSummary']
             output_file.write('"{}","{}"\n'.format(qualifications.replace('"', '""'), category_title))
+            number_of_results = number_of_results + 1
+            if number_of_results == 100:
+                return
         response = requests.get(current_search_url + '&Page={}'.format(page), headers=headers)
         result = response.json()
         result_items = result['SearchResult']['SearchResultItems']

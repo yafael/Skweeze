@@ -1,0 +1,84 @@
+{
+  "answer_units": [
+    {
+      "content": [
+        {
+          "media_type": "text/plain",
+          "text": "Nicholas Chehade Campus Address: 172 E 11th Ave Columbus, Ohio 43201 (216) 650-1238 NicholasChehade@gmail.com"
+        }
+      ],
+      "id": "73787248-70dc-456a-9d94-56d94b2ce43b",
+      "title": "no-title",
+      "type": "body",
+      "direction": "ltr",
+      "parent_id": ""
+    },
+    {
+      "content": [
+        {
+          "media_type": "text/plain",
+          "text": "33008 Brackenbury Drive Solon, Ohio 44139"
+        }
+      ],
+      "id": "8b271e78-e8ac-451a-8332-0925c16616ec",
+      "title": "Permanent Address:",
+      "type": "h4",
+      "direction": "ltr",
+      "parent_id": ""
+    },
+    {
+      "content": [
+        {
+          "media_type": "text/plain",
+          "text": "The Ohio State University, Columbus, Ohio Double Major: Bachelor of Science in Neuroscience Bachelor of Arts in Computer \u0026 Information Science Honors student Expected Graduation: May 2017 GPA: 3.911 (4.000 scale)"
+        }
+      ],
+      "id": "7064948c-0fd9-4112-82c1-d58b1ba9f734",
+      "title": "Education",
+      "type": "h4",
+      "direction": "ltr",
+      "parent_id": ""
+    },
+    {
+      "content": [
+        {
+          "media_type": "text/plain",
+          "text": "- Computer programming (HTML, Java, MATLAB, C++/C#) - Time management, customer service, task prioritizing, and self-management - CITI HSR and RCR certified - Microsoft office programs and AutoCAD - Light board operating - Laboratory experience: chemistry, biology, cognitive neuroscience, computer vision - fMRI safety trained"
+        }
+      ],
+      "id": "72e8dbfe-bdfc-4f84-9003-69e1d7adaa10",
+      "title": "Skills",
+      "type": "h4",
+      "direction": "ltr",
+      "parent_id": ""
+    },
+    {
+      "content": [
+        {
+          "media_type": "text/plain",
+          "text": "Research Intern May 2016-Present Air Force Research Laboratory Jim Davis, Ph.D Professor, OSU (jwdavis@cse.ohio-state.edu) Computer vision research using convolutional neural networks with Matconvnet in MATLAB. AV Technician September 2014-May 2016 The Ohio Union Mitch Benner, Audiovisual Coordinator (benner.77@osu.edu; 614-526-9166) Preparing events by setting up and tearing down sound, lighting, and AV equipment. Undergraduate Research Assistant June 2015-August 2015 NSF Research Experience for Undergraduates in Mechatronics, Robotics, and Automated System Design Joseph Lee, Ph.D. Candidate (joseph.sung.lee@gmail.com; 979-595-7606) Robotic vision research using corner detection and optical flow algorithms with OpenCV and OpenGL libraries. Additionally worked on image stitching, image texture mapping, and image projection. Undergraduate Researcher August 2014-December 2014 OSU Vision \u0026 Cognitive Neuroscience Lab Run subjects through eye tracking software in order to further research in visual processing, analyzing data in MATLAB. Microbiologist Research Intern May 2014-August 2014 Gojo Industries, Inc. Joe Rutter, Microbiology Technician (jrutter789@gmail.com; 216-246-4233) Carried out time-kill experiments involving Clostridium Difficile bacterium, and other bacteria, implemented in vivo studies to further research hand washing methods."
+        }
+      ],
+      "id": "d34a4a12-e833-4c6e-b85e-44b453848d12",
+      "title": "Work Experience (with references)",
+      "type": "h4",
+      "direction": "ltr",
+      "parent_id": ""
+    },
+    {
+      "content": [
+        {
+          "media_type": "text/plain",
+          "text": "Maximus Scholarship 2013-Present Dean\u0027s List 2013-2016 Inducted Nu Rho Psi Member Spring 2015 STEP Fellowship for Research Autumn 2015 Relevant classes completed: NEURO - Cellular, Cognitive, Cognitive Science, Computational, Data Analytics, Neurophysiology, Quantitative, Structure/Function CIS - AI, Discrete/Data, Ethics, Games, Low Level Programming/Computer Organization, Project: Systems, Software I \u0026 II, Structures and Algorithms"
+        }
+      ],
+      "id": "42c77bf1-3176-4c8d-9de6-014fe34e4509",
+      "title": "Awards and Achievements",
+      "type": "h4",
+      "direction": "ltr",
+      "parent_id": ""
+    }
+  ],
+  "source_document_id": "",
+  "timestamp": "2017-02-07T23:55:09.902"
+}
