@@ -5,31 +5,32 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.Concept;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Keyword;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Keywords;
 
-public class ConceptExtract {
+public class KeywordExtract {
 
 	private String key = "fa233cf98f9fe0c216cf53aab56025b2b1896f06";
 	private AlchemyLanguage service;
 	
-	public ConceptExtract() {
+	public KeywordExtract() {
 		service = new AlchemyLanguage();
 		service.setApiKey(key);
 	}
 	
-	public String getConcepts(String inputText) {
+	public String getKeywords(String inputText) {
 		Map<String,Object> params = new HashMap<>();
 		params.put(AlchemyLanguage.TEXT, inputText);
-		Concepts concepts = service.getConcepts(params).execute();
-		List<Concept> conceptList = concepts.getConcepts();
+		params.put(AlchemyLanguage.MAX_RETRIEVE, 40);
+		Keywords keywords = service.getKeywords(params).execute();
+		List<Keyword> keywordList = keywords.getKeywords();
 		
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < conceptList.size(); i++) {
+		for (int i = 0; i < keywordList.size(); i++) {
 			if (i > 0) {
 				sb.append(",");
 			}
-			sb.append(conceptList.get(i).getText());
+			sb.append(keywordList.get(i).getText());
 		}
 		
 		return sb.toString();

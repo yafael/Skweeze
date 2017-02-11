@@ -5,8 +5,8 @@ public class Skweeze {
 	public static void main(String[] args) {
 		DocConvert dc = new DocConvert();
 		String resumeText = dc.convert("data/CV.pdf");
-		ConceptExtract extractor = new ConceptExtract();
-		String concepts = extractor.getConcepts(resumeText);
+		KeywordExtract extractor = new KeywordExtract();
+		String concepts = extractor.getKeywords(resumeText);
 		System.out.println(concepts);
 	}
 }

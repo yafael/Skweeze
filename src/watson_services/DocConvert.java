@@ -19,7 +19,7 @@ public class DocConvert {
 	
 	public String convert(String fileName){
 		File resume = new File(fileName);
-		String text = service.convertDocumentToText(resume).execute();	
+		String text = service.convertDocumentToText(resume).execute();
 		return text;
 	}
 }
