@@ -8,12 +8,12 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Keyword;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Keywords;
 
-public class KeywordExtract {
+public class KeywordExtractor {
 
 	private String key = "fa233cf98f9fe0c216cf53aab56025b2b1896f06";
 	private AlchemyLanguage service;
 	
-	public KeywordExtract() {
+	public KeywordExtractor() {
 		service = new AlchemyLanguage();
 		service.setApiKey(key);
 	}
