@@ -12,12 +12,12 @@ public class NLC_Test {
 		NaturalLanguageClassifier service = new NaturalLanguageClassifier();
 		service.setUsernameAndPassword(creds.getUsername(), creds.getPassword());
 		//Create classifier
-		//Classifier classifier = service.createClassifier("test","en",
-				//new File("data/keyword_data.csv")).execute();
+//		Classifier classifier = service.createClassifier("test","en",
+//				new File("data/new_data.csv")).execute();
 //		System.out.println(classifier);
 		//Query status (training, available, etc) TODO decide how to get classifier ID
-		//Classifier classifier = service.getClassifiers().execute().getClassifiers().get(0);
-		//System.out.println(classifier);
+		Classifier classifier = service.getClassifiers().execute().getClassifiers().get(0);
+		System.out.println(classifier);
 		//Classify sentence
 //		Classification classification = service.classify(
 //				classifier.getId(),"Will it rain Saturday?").execute();
