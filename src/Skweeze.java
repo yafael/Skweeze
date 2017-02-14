@@ -6,16 +6,19 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import watson_services.*;
 
 public class Skweeze {
-	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws IOException {
 		DocConverter dc = new DocConverter();
-		String resumeText = dc.convert("data/CV.pdf");
+		String resumeText = dc.convert("data/teacher_resume.pdf");
+		//String resumeText = dc.convert("data/accounting_major_resume.pdf");
+		//String resumeText = dc.convert("data/CV.pdf");
 		
 		KeywordExtractor extractor = new KeywordExtractor();
-		String concepts = extractor.getKeywords(resumeText);
+		String keywords = extractor.getKeywords(resumeText);
+		
+		//System.out.println(keywords);
 		
 		CategoryClassifier classifier = new CategoryClassifier();
-		List<ClassifiedClass> topClasses = classifier.getTopClasses(concepts, 3);
+		List<ClassifiedClass> topClasses = classifier.getTopClasses(keywords, 3);
 		
 		printClassificationResults(topClasses);
 	}
