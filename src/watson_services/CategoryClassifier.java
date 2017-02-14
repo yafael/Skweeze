@@ -10,6 +10,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 
 public class CategoryClassifier {
 
+	private String classifierId = "f5b432x172-nlc-3527";
 	private NaturalLanguageClassifier service;
 	
 	public CategoryClassifier() throws IOException {
@@ -19,7 +20,7 @@ public class CategoryClassifier {
 	}
 	
 	public List<ClassifiedClass> getTopClasses(String input, int numberOfClasses) {
-		Classifier classifier = service.getClassifiers().execute().getClassifiers().get(0);
+		Classifier classifier = service.getClassifier(classifierId).execute();
 		Classification classification = service.classify(
 				classifier.getId(), input).execute();
 		List<ClassifiedClass> topClasses = classification.getClasses().subList(0, numberOfClasses);
