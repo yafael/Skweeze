@@ -20,6 +20,7 @@ import watson_services.Credentials;
 public class NLC_Test {
 	public static NaturalLanguageClassifier service;
 	private String testID = "f5b42fx173-nlc-3929";
+	private String classifierID = "f5b432x172-nlc-3527";
 	@Test
 	public void testCreds() throws UnauthorizedException {
 		try {
@@ -32,9 +33,27 @@ public class NLC_Test {
 		}
 	}
 	@Test
-	public void testClassification() throws IOException {
+	public void trainedClassifiersExist(){
+		assertTrue(service.getClassifiers().execute().getClassifiers().size()>0);
+	}
+	@Test
+	public void testClassification(){
 		Classification returned = service.classify(testID,"Will it rain today?").execute();
-		List<ClassifiedClass> max = returned.getClasses().subList(0, 1);
-		assertTrue(max.remove(0).getName().equals("conditions"));
+		assertTrue(returned.getClasses().remove(0).getName().equals("conditions"));
+	}
+	@Test
+	public void testJobClassificationCSE(){
+		Classification returned = service.classify(classifierID, "computer").execute();
+		assertTrue(returned.getClasses().remove(0).getName().equals("Information Technology"));
+	}
+	@Test
+	public void testJobClassificationPsych(){
+		Classification returned = service.classify(classifierID, "psychology").execute();
+		assertTrue(returned.getClasses().remove(0).getName().equals("Social Science, Psychologist"));
+	}
+	@Test
+	public void testJobClassificationEducation(){
+		Classification returned = service.classify(classifierID, "teach").execute();
+		assertTrue(returned.getClasses().remove(0).getName().equals("Education"));
 	}
 }

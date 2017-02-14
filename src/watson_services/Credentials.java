@@ -9,6 +9,7 @@ public class Credentials {
 	private String username;
 	private String password;
 	private String date;
+	private String apikey;
 	
 	public static Credentials loadCreds(String filePath) throws IOException{
 		String fileContents = FileUtils.readFileToString(new File(filePath), "UTF-8");
@@ -26,5 +27,8 @@ public class Credentials {
 	}
 	public String getDate(){
 		return date;
+	}
+	public String getAPI(){
+		return apikey;
 	}
 }

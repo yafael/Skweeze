@@ -1,5 +1,6 @@
 package watson_services;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +10,12 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Keyword;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Keywords;
 
 public class KeywordExtractor {
-
-	private String key = "fa233cf98f9fe0c216cf53aab56025b2b1896f06";
 	private AlchemyLanguage service;
 	
-	public KeywordExtractor() {
+	public KeywordExtractor() throws IOException {
+		Credentials creds = Credentials.loadCreds("credentials/alchemy_creds");
 		service = new AlchemyLanguage();
-		service.setApiKey(key);
+		service.setApiKey(creds.getAPI());
 	}
 	
 	public String getKeywords(String inputText) {
