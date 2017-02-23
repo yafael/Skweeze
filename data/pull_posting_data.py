@@ -1,8 +1,9 @@
+import sys
 import requests
 import json
+from docx import Document
 
-# resulting csv file
-output_file = open('input_data.csv', 'w')
+output_folder = sys.argv[1]
 
 # static params for the API call
 base_url = 'https://data.usajobs.gov'
@@ -20,8 +21,6 @@ education_title = 'Education'
 education_codes = 'JobCategoryCode=1702,1710,1720,1730,1740,1701,1750,1712'
 engineering_and_architect_title = 'Engineering And Architect'
 engineering_and_architect_codes = 'JobCategoryCode=0861,0890,0808,0858,0893,0810,0854,0809,0850,0855,0856,0899,0802,0819,0804,0801,0896,0807,0806,0830,0880,0871,0840,0881,0803,0817'
-#food_preparation_and_serving_title = 'Food Preparation And Serving'
-#food_preparation_and_serving_codes = 'JobCategoryCode=7405,7404,7408,7407,7401,7420'
 information_technology_title = 'Information Technology'
 information_technology_codes = 'JobCategoryCode=2210,2299'
 inspection_investigation_title = 'Inspection, Investigation'
@@ -68,8 +67,18 @@ def get_category_posting_info(category_code_params, category_title):
     number_of_results = 0
     for page in range(1,number_of_pages+1):
         for item in result_items:
+            title = item['MatchedObjectDescriptor']['PositionTitle']
+            summary = item['MatchedObjectDescriptor']['UserArea']['Details']['JobSummary']
             qualifications = item['MatchedObjectDescriptor']['QualificationSummary']
-            output_file.write('"{}","{}"\n'.format(qualifications.replace('"', '""'), category_title))
+
+            document = Document()
+            document.add_heading(title, 1)
+            document.add_heading('Job Summary', 2)
+            document.add_paragraph(summary)
+            document.add_heading('Qualification Summary', 2)
+            document.add_paragraph(qualifications)
+            document.save('{}/{}{}.docx'.format(output_folder, category_title[:3], number_of_results))
+
             number_of_results = number_of_results + 1
             if number_of_results == 100:
                 return
@@ -81,5 +90,3 @@ def get_category_posting_info(category_code_params, category_title):
 
 for title, codes in category_dict.items():
     get_category_posting_info(codes, title)
-
-output_file.close()
