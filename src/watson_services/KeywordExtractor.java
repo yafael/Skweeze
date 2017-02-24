@@ -13,7 +13,7 @@ public class KeywordExtractor {
 	private AlchemyLanguage service;
 	
 	public KeywordExtractor() throws IOException {
-		Credentials creds = Credentials.loadCreds("credentials/alchemy_creds");
+		Credentials creds = Credentials.loadCreds("credentials/alchemy_cred");
 		service = new AlchemyLanguage();
 		service.setApiKey(creds.getAPI());
 	}

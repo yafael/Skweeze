@@ -14,6 +14,8 @@ public class Skweeze {
 		
 		KeywordExtractor extractor = new KeywordExtractor();
 		String keywords = extractor.getKeywords(resumeText);
+		RandR retrieve = new RandR();
+		retrieve.rank();
 		
 		//System.out.println(keywords);
 		

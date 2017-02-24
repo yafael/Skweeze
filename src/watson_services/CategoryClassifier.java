@@ -21,8 +21,7 @@ public class CategoryClassifier {
 	
 	public List<ClassifiedClass> getTopClasses(String input, int numberOfClasses) {
 		Classifier classifier = service.getClassifier(classifierId).execute();
-		Classification classification = service.classify(
-				classifier.getId(), input).execute();
+		Classification classification = service.classify(classifier.getId(), input).execute();
 		List<ClassifiedClass> topClasses = classification.getClasses().subList(0, numberOfClasses);
 		return topClasses;
 	}
