@@ -5,12 +5,16 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 
 import watson_services.*;
 
+// hey
 public class Skweeze {
 	public static void main(String[] args) throws IOException {
 		DocConverter dc = new DocConverter();
 		String resumeText = dc.convert("data/teacher_resume.pdf");
 		//String resumeText = dc.convert("data/accounting_major_resume.pdf");
 		//String resumeText = dc.convert("data/CV.pdf");
+		
+		QuestionGenerator qg = new QuestionGenerator();
+		qg.generateQuestions();
 		
 		KeywordExtractor extractor = new KeywordExtractor();
 		String keywords = extractor.getKeywords(resumeText);
