@@ -13,8 +13,8 @@ public class Skweeze {
 		//String resumeText = dc.convert("data/accounting_major_resume.pdf");
 		//String resumeText = dc.convert("data/CV.pdf");
 		
-		QuestionGenerator qg = new QuestionGenerator();
-		qg.generateQuestions();
+//		QuestionGenerator qg = new QuestionGenerator();
+//		qg.generateQuestions();
 		
 		KeywordExtractor extractor = new KeywordExtractor();
 		String keywords = extractor.getKeywords(resumeText);
