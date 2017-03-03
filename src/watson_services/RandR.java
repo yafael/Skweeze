@@ -18,6 +18,8 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
+import watson_services.Credentials;
+
 
 public class RandR {
 
@@ -34,7 +36,7 @@ public class RandR {
 
 	    final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 	    credentialsProvider.setCredentials(new AuthScope(scopeUri.getHost(), scopeUri.getPort()),
-	        new UsernamePasswordCredentials("{username}", "{password}"));
+	        new UsernamePasswordCredentials(username, password));
 
 	    final HttpClientBuilder builder = HttpClientBuilder.create()
 	        .setMaxConnTotal(128)
@@ -49,12 +51,11 @@ public class RandR {
 		service.setUsernameAndPassword(creds.getUsername(), creds.getPassword());
 	}
 
-	public void rank() throws IOException, SolrServerException{
+	public void rank(String keywords) throws IOException, SolrServerException{
 		Credentials creds = Credentials.loadCreds("credentials/randr_cred");
 		solrClient = getSolrClient(service.getSolrUrl(clusterID),creds.getUsername(),creds.getPassword());
-		SolrQuery query = new SolrQuery("computer");
-		QueryResponse response = solrClient.query("Job-Postings", query);
+		SolrQuery query = new SolrQuery(keywords);
+		QueryResponse response = solrClient.query("Education", query);
 		System.out.println(response);
-		System.out.println(service.getRankers().execute());
 	}
 }

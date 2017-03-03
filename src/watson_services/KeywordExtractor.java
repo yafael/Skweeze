@@ -19,7 +19,7 @@ public class KeywordExtractor {
 	}
 	
 	public String getKeywords(String inputText) {
-		Map<String,Object> params = new HashMap<>();
+		Map<String,Object> params = new HashMap<String, Object>();
 		params.put(AlchemyLanguage.TEXT, inputText);
 		params.put(AlchemyLanguage.MAX_RETRIEVE, 40);
 		Keywords keywords = service.getKeywords(params).execute();
