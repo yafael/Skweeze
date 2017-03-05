@@ -1,8 +1,11 @@
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocumentList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 
@@ -22,7 +25,7 @@ public class Skweeze {
 		String keywords = extractor.getKeywords(resumeText);
 		RandR retrieve = new RandR();
 		SolrDocumentList results = retrieve.rank("computer", "Education");
-		//Map<Integer, JSONObject> formatted = retrieve.formatRanking(results);
+		Map<Integer, JSONObject> formatted = retrieve.formatRanking(results);
 		//String doc = formatted.get(1).get("searchText").toString();
 		//System.out.println(doc);
 
