@@ -4,6 +4,7 @@ import helper_classes.RankedJobPosting;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,24 @@ public class RandR {
 				.setDefaultCredentialsProvider(credentialsProvider);
 		return builder.build();
 	}
+    private static final Map<String, String> classToCluster;
+    static
+    {
+        classToCluster = new HashMap<String, String>();
+        classToCluster.put("Accounting Budget and Finance", "Accounting-Budget-and-Finance");
+        classToCluster.put("Biological Sciences", "Biological-Sciences");
+        classToCluster.put("Business, Industry, and Programs", "Business-Industry-and-Programs");
+        classToCluster.put("Education", "Education");
+        classToCluster.put("Engineering And Architect", "Engineering-and-Architect");
+        classToCluster.put("Information Technology", "Information-Technology");
+        classToCluster.put("Inspection, Investigation", "Inspection-Investigation");
+        classToCluster.put("Management, Administrative And Clerical Services", "Management-Administrative-and-Clerical-Services");
+        classToCluster.put("Medical, Dental, And Public Health", "Medical-Dental-and-Public-Health");
+        classToCluster.put("Safety, Health, And Physical", "Safety-Health-and-Physical");
+        classToCluster.put("Social Science, Psychologist", "Social-Science-Psychologist");
+        classToCluster.put("Supply", "Supply");
+        classToCluster.put("Transportation/Mobile Equipment Maintenance", "Transportation-Mobile-Equipment-Maintenance");
+    }
 	
 	public RandR() throws IOException{
 		Credentials creds = Credentials.loadCreds("credentials/randr_cred");
@@ -67,10 +86,10 @@ public class RandR {
 		
 		for (ClassifiedClass c : topClasses) {
 			// map class name to cluster name
-			SolrDocumentList response = solrClient.query(cluster, query).getResults();
+			SolrDocumentList response = solrClient.query(classToCluster.get(c.getName()), query).getResults();
 			int totalResults = Math.toIntExact(response.getNumFound());
 			for (int i = 0; i < totalResults; i++) {
-				// extract posting text
+				String text = getPostingText(response.get(i));
 				Double classConfidence = c.getConfidence();
 				int score = totalResults - i;
 				Double postingRanking = getWeightedRanking(classConfidence, score);
@@ -85,8 +104,9 @@ public class RandR {
 		return rankedJobPostings;
 	}
 	
-	private String getPostingText() {
-		// return extracted posting text
+	private String getPostingText(SolrDocument doc) {
+		Collection<Object> text = doc.getFieldValues("searchText");
+		return (String) text.toArray()[1];
 	}
 	
 	/*
