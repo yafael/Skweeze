@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocumentList;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 
@@ -17,7 +18,9 @@ public class Skweeze {
 		
 		KeywordExtractor extractor = new KeywordExtractor();
 		String keywords = extractor.getKeywords(resumeText);
-		
+		RandR retrieve = new RandR();
+		SolrDocumentList results = retrieve.rank("computer", "Education");
+		retrieve.formatRanking(results);
 		//System.out.println(keywords);
 		
 		CategoryClassifier classifier = new CategoryClassifier();
