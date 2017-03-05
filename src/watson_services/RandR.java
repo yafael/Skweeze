@@ -1,8 +1,10 @@
 package watson_services;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.*;
+
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
@@ -13,6 +15,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.util.NamedList;
 
 import watson_services.Credentials;
 
@@ -52,6 +55,7 @@ public class RandR {
 		solrClient = getSolrClient(service.getSolrUrl(clusterID),creds.getUsername(),creds.getPassword());
 		SolrQuery query = new SolrQuery(keywords);
 		QueryResponse response = solrClient.query("Education", query);
-		System.out.println(response);
+		System.out.println(response.toString());
+		//System.out.println(response);
 	}
 }
