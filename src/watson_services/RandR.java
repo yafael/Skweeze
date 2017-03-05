@@ -51,14 +51,15 @@ public class RandR {
 		service.setUsernameAndPassword(creds.getUsername(), creds.getPassword());
 	}
 
-	public void formatRanking(SolrDocumentList results){
-		Map<Integer, Object> solrDocMap = new HashMap<Integer, Object>();
+	public Map<Integer, JSONObject> formatRanking(SolrDocumentList results){
+		Map<Integer, JSONObject> solrDocMap = new HashMap<Integer, JSONObject>();
 		int counter = 0;
 		for(SolrDocument singleDoc : results)
 		{
 			solrDocMap.put(counter, new JSONObject(singleDoc));
 			counter++;
 		}
+		return solrDocMap;
 	}
 	public SolrDocumentList rank(String keywords, String cluster) throws IOException, SolrServerException{
 		Credentials creds = Credentials.loadCreds("credentials/randr_cred");
