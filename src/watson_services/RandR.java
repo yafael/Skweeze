@@ -3,10 +3,6 @@ import java.io.IOException;
 import java.net.URI;
 
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.*;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
-
-import okhttp3.Request;
-
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
