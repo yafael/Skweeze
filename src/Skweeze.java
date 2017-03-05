@@ -15,20 +15,24 @@ public class Skweeze {
 		//String resumeText = dc.convert("data/accounting_major_resume.pdf");
 		//String resumeText = dc.convert("data/CV.pdf");
 		
-		//QuestionGenerator qg = new QuestionGenerator();
-		//qg.generateQuestions();
-		
 		KeywordExtractor extractor = new KeywordExtractor();
 		String keywords = extractor.getKeywords(resumeText);
-		RandR retrieve = new RandR();
-		retrieve.rank("computer");
 		
 		//System.out.println(keywords);
 		
 		CategoryClassifier classifier = new CategoryClassifier();
 		List<ClassifiedClass> topClasses = classifier.getTopClasses(keywords, 3);
 		
+		retrieveTopJobs(resumeText, topClasses);
+		
 		printClassificationResults(topClasses);
+	}
+	
+	private static void retrieveTopJobs(String resumeText, List<ClassifiedClass> topClasses) throws IOException, SolrServerException {
+		RandR retrieve = new RandR();
+		for (ClassifiedClass c : topClasses) {
+			retrieve.rank(resumeText, c);
+		}
 	}
 	
 	private static void printClassificationResults(List<ClassifiedClass> topClasses) {
