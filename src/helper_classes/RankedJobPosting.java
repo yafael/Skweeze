@@ -23,16 +23,4 @@ public class RankedJobPosting {
 	public String getCategory() {
 		return category;
 	}
-	
-	public static int comparison(RankedJobPosting a, RankedJobPosting b) {
-		if (a.ranking > b.ranking) {
-			return -1;
-		}
-		else if (a.ranking < b.ranking) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
 }
