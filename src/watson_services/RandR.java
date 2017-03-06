@@ -76,7 +76,7 @@ public class RandR {
 		Credentials creds = Credentials.loadCreds("credentials/randr_cred");
 		service = new RetrieveAndRank();
 		service.setUsernameAndPassword(creds.getUsername(), creds.getPassword());
-		rankedJobPostings = new ArrayList<>();
+		rankedJobPostings = new ArrayList<RankedJobPosting>();
 	}
 
 	public ArrayList<RankedJobPosting> rank(String resumeText, List<ClassifiedClass> topClasses) throws IOException, SolrServerException{
