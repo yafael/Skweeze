@@ -20,8 +20,6 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
@@ -85,22 +83,19 @@ public class RandR {
 		SolrQuery query = new SolrQuery(resumeText);
 		
 		for (ClassifiedClass c : topClasses) {
-			// map class name to cluster name
 			SolrDocumentList response = solrClient.query(classToCluster.get(c.getName()), query).getResults();
 			int totalResults = Math.toIntExact(response.getNumFound());
-			for (int i = 0; i < totalResults; i++) {
+			System.out.println(totalResults);
+			for (int i = 0; i < totalResults && i < 10; i++) {
 				String text = getPostingText(response.get(i));
 				Double classConfidence = c.getConfidence();
 				int score = totalResults - i;
 				Double postingRanking = getWeightedRanking(classConfidence, score);
-				rankedJobPostings.add(new RankedJobPosting(text, postingRanking));
+				rankedJobPostings.add(new RankedJobPosting(text, postingRanking, c.getName()));
 			}
 		}
 		
-		// resort list
 		rankedJobPostings.sort(RankedJobPosting::comparison);
-		
-		// return list
 		return rankedJobPostings;
 	}
 	
@@ -109,9 +104,6 @@ public class RandR {
 		return (String) text.toArray()[1];
 	}
 	
-	/*
-	 * Method to perform weighting equation
-	 */
 	private Double getWeightedRanking(Double classConfidence, int score) {
 		return classConfidence * score;
 	}

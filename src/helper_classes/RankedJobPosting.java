@@ -4,10 +4,12 @@ public class RankedJobPosting {
 	
 	private String postingText;
 	private Double ranking;
+	private String category;
 	
-	public RankedJobPosting(String postingText, Double ranking) {	
+	public RankedJobPosting(String postingText, Double ranking, String category) {	
 		this.postingText = postingText;
 		this.ranking = ranking;
+		this.category = category;
 	}
 
 	public String getPostingText() {
@@ -16,6 +18,10 @@ public class RankedJobPosting {
 	
 	public Double getRanking() {
 		return ranking;
+	}
+	
+	public String getCategory() {
+		return category;
 	}
 	
 	public static int comparison(RankedJobPosting a, RankedJobPosting b) {

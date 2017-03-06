@@ -18,7 +18,7 @@ public class KeywordExtractor {
 		service.setApiKey(creds.getAPI());
 	}
 	
-	public String getKeywords(String inputText) {
+	public String getKeywords(String inputText, int numberOfKeywords) {
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put(AlchemyLanguage.TEXT, inputText);
 		params.put(AlchemyLanguage.MAX_RETRIEVE, 40);
@@ -26,7 +26,7 @@ public class KeywordExtractor {
 		List<Keyword> keywordList = keywords.getKeywords();
 		
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < keywordList.size(); i++) {
+		for (int i = 0; i < keywordList.size() && i < numberOfKeywords; i++) {
 			if (i > 0) {
 				sb.append(",");
 			}
