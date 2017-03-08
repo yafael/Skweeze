@@ -86,10 +86,10 @@
                     <h2 class="section-heading">Try out a service for free!</h2>
                     <hr class="light">
                     <p class="text-faded">Upload your resume below and let the algorithm do the hard work!</p>
-		    <form action="results.html">
-  		        Select Resume: <input type="file" name="resume">
-  	                <input class="page-scroll btn btn-default btn-xl sr-button" type="submit">
-		    </form>
+		    		<form method="post" enctype="multipart/form-data">
+  		        		Select Resume: <input type="file" name="resume" accept=".pdf,.doc,.docx">
+  	                	<input class="page-scroll btn btn-default btn-xl sr-button" type="submit">
+		    		</form>
                 </div>
             </div>
         </div>
