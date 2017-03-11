@@ -56,7 +56,7 @@ public class JobFinder {
 	private void printPostingResults(ArrayList<RankedJobPosting> topPostings) {
 		for (int i = 0; i < 5; i++) {
 			RankedJobPosting p = topPostings.get(i);
-			System.out.println("Text: " + p.getPostingText());
+			System.out.println("Text: " + p.getTitle());
 			System.out.println("Ranking: " + p.getRanking());
 			System.out.println("Category: " + p.getCategory());
 		}

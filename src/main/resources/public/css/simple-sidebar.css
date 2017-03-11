@@ -12,6 +12,10 @@
      color: #F05F40;
  }
 
+ span.glyphicon {
+     font-size: 0.7em;
+ }
+
 /* Toggle Styles */
 
 #wrapper {

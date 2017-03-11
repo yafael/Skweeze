@@ -72,7 +72,13 @@
                         <h1>Results</h1>
                         <ul class="list-group">
                         <#list jobPostings as posting>
-                            <li class="list-group-item">${posting.postingText}</li>
+                            <li class="list-group-item" data-toggle="collapse" data-target="#${posting?index}" aria-expanded="false" aria-controls="${posting?index}">
+                                <h2>${posting.title}</h2>
+                                <div class="collapse" id="${posting?index}" aria-expanded="false">
+                                    <p>${posting.jobSummary}</p>
+                                    <p>${posting.qualificationSummary}</p>
+                                </div>
+                            </li>
                         </#list>
                         </ul>
                     </div>
