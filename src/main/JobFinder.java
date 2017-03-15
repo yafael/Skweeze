@@ -17,48 +17,25 @@ import watson_services.RandR;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 
 public class JobFinder {
-
-	private ArrayList<RankedJobPosting> topPostings;
 	
-	public JobFinder() {
-		topPostings = new ArrayList<>();
-	}
+	private final static int NLC_KEYWORD_COUNT = 40;
+	private final static int NLC_NUMBER_OF_CLASSES = 3;
+	private final static int RETRIEVE_AND_RANK_KEYWORD_COUNT = 5;
 	
-	public ArrayList<RankedJobPosting> getTopPostings() {
-		return topPostings;
-	}
-	
-	public void searchForJobs(File resume) throws IOException, SolrServerException {
+	public static ArrayList<RankedJobPosting> searchForJobs(File resume) throws IOException, SolrServerException {
 		DocConverter dc = new DocConverter();
 		String resumeText = dc.convert(resume.getAbsolutePath());
 		
 		KeywordExtractor extractor = new KeywordExtractor();
-		String keywords = extractor.getKeywords(resumeText, 40);
+		String keywords = extractor.getKeywords(resumeText, NLC_KEYWORD_COUNT);
 
 		CategoryClassifier classifier = new CategoryClassifier();
-		List<ClassifiedClass> topClasses = classifier.getTopClasses(keywords, 3);
+		List<ClassifiedClass> topClasses = classifier.getTopClasses(keywords, NLC_NUMBER_OF_CLASSES);
 		
-		printClassificationResults(topClasses);
-		
-		String k = extractor.getKeywords(resumeText, 5);
+		String k = extractor.getKeywords(resumeText, RETRIEVE_AND_RANK_KEYWORD_COUNT);
 		RandR retrieve = new RandR();
-		topPostings = retrieve.rank(k, topClasses);
-
-		printPostingResults(topPostings);
-	}
-	
-	private void printClassificationResults(List<ClassifiedClass> topClasses) {
-		for (ClassifiedClass c : topClasses) {
-			System.out.println("Class: " + c.getName() + " - Confidence: " + c.getConfidence());
-		}
-	}
-	
-	private void printPostingResults(ArrayList<RankedJobPosting> topPostings) {
-		for (int i = 0; i < 5; i++) {
-			RankedJobPosting p = topPostings.get(i);
-			System.out.println("Text: " + p.getTitle());
-			System.out.println("Ranking: " + p.getRanking());
-			System.out.println("Category: " + p.getCategory());
-		}
+		ArrayList<RankedJobPosting> topPostings = retrieve.rank(k, topClasses);
+		
+		return topPostings;
 	}
 }

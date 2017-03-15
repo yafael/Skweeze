@@ -70,16 +70,16 @@
                     <div class="col-lg-12">
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                         <h1>Results</h1>
-                        <ul class="list-group">
-                        <#list jobPostings as posting>
-                            <li class="list-group-item" data-toggle="collapse" data-target="#${posting?index}" aria-expanded="false" aria-controls="${posting?index}">
-                                <h2>${posting.title}</h2>
-                                <div class="collapse" id="${posting?index}" aria-expanded="false">
-                                    <p>${posting.jobSummary}</p>
-                                    <p>${posting.qualificationSummary}</p>
-                                </div>
-                            </li>
-                        </#list>
+                        <ul class="list-group" id="postingList">
+                            <template v-for="(posting, index) in jobPostings">
+                                <li class="list-group-item" data-toggle="collapse" v-bind:data-target="'#' + index" aria-expanded="false" v-bind:aria-controls="index">
+                                    <h2>{{posting.title}}</h2>
+                                    <div class="collapse" v-bind:id="index" aria-expanded="false">
+                                        <p>{{posting.jobSummary}}</p>
+                                        <p>{{posting.qualificationSummary}}</p>
+                                    </div>
+                                </li>
+                            </template>
                         </ul>
                     </div>
                 </div>
@@ -96,12 +96,38 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue"></script>
+
     <!-- Menu Toggle Script -->
     <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    var postingList = new Vue({
+        el: '#postingList',
+        data: {
+            jobPostings: []
+        },
+        created: function() {
+            var postings = this.jobPostings;
+            var url = window.location.href;
+            var posting = $.post(url);
+            posting.done(function(data) {
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++) {
+                    var obj = {};
+                    var currentResult = result[i];
+                    obj["title"] = currentResult.title;
+                    obj["jobSummary"] = currentResult.jobSummary;
+                    obj["qualificationSummary"] = currentResult.qualificationSummary;
+                    postings.push(obj);
+                }
+            });                 
+        }
+    })
     </script>
 
 </body>

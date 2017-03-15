@@ -85,7 +85,7 @@ public class RandR {
 		for (ClassifiedClass c : topClasses) {
 			SolrDocumentList response = solrClient.query(classToCluster.get(c.getName()), query).getResults();
 			int totalResults = Math.toIntExact(response.getNumFound());
-			System.out.println(totalResults);
+			//System.out.println(totalResults);
 			for (int i = 0; i < totalResults && i < 10; i++) {
 				String text = getPostingText(response.get(i));
 				Double classConfidence = c.getConfidence();
