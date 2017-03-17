@@ -17,6 +17,9 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    <!-- Spinner -->
+    <link href="css/ball-grid-pulse.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -70,17 +73,34 @@
                     <div class="col-lg-12">
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                         <h1>Results</h1>
-                        <ul class="list-group" id="postingList">
-                            <template v-for="(posting, index) in jobPostings">
-                                <li class="list-group-item" data-toggle="collapse" v-bind:data-target="'#' + index" aria-expanded="false" v-bind:aria-controls="index">
-                                    <h2>{{posting.title}}</h2>
-                                    <div class="collapse" v-bind:id="index" aria-expanded="false">
-                                        <p>{{posting.jobSummary}}</p>
-                                        <p>{{posting.qualificationSummary}}</p>
-                                    </div>
-                                </li>
-                            </template>
-                        </ul>
+
+                        <!-- Result display -->
+                        <div id="postingList" class="container-fluid">
+                            <div v-if="jobPostings.length == 0" style="color: #F05F40" class="la-ball-grid-pulse la-3x">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <ul v-else class="list-group">
+                                <template v-for="(posting, index) in jobPostings">
+                                    <li class="list-group-item" data-toggle="collapse" v-bind:data-target="'#' + index" aria-expanded="false" v-bind:aria-controls="index">
+                                        <h2>{{posting.title}}</h2>
+                                        <div class="collapse" v-bind:id="index" aria-expanded="false">
+                                            <p>{{posting.jobSummary}}</p>
+                                            <p>{{posting.qualificationSummary}}</p>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
