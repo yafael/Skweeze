@@ -18,9 +18,9 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 
 public class JobFinder {
 	
-	private final static int NLC_KEYWORD_COUNT = 40;
+	private final static int NLC_KEYWORD_COUNT = 30;
 	private final static int NLC_NUMBER_OF_CLASSES = 3;
-	private final static int RETRIEVE_AND_RANK_KEYWORD_COUNT = 5;
+	private final static int RETRIEVE_AND_RANK_KEYWORD_COUNT = 35;
 	
 	public static ArrayList<RankedJobPosting> searchForJobs(File resume) throws IOException, SolrServerException {
 		DocConverter dc = new DocConverter();
@@ -31,6 +31,13 @@ public class JobFinder {
 
 		CategoryClassifier classifier = new CategoryClassifier();
 		List<ClassifiedClass> topClasses = classifier.getTopClasses(keywords, NLC_NUMBER_OF_CLASSES);
+		float total = 0;
+		for (ClassifiedClass c : topClasses) {
+			total+= c.getConfidence();
+		}
+		for (ClassifiedClass c : topClasses) {
+			c.setConfidence(c.getConfidence()/total);
+		}
 		
 		String k = extractor.getKeywords(resumeText, RETRIEVE_AND_RANK_KEYWORD_COUNT);
 		RandR retrieve = new RandR();

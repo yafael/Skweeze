@@ -13,7 +13,7 @@ public class RankedJobPosting {
 		this.ranking = ranking;
 		this.category = category;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -35,22 +35,26 @@ public class RankedJobPosting {
 	}
 
 	public static int comparison(RankedJobPosting a, RankedJobPosting b) {
- 		if (a.ranking > b.ranking) {
-  			return -1;
- 		}
- 		else if (a.ranking < b.ranking) {
- 			return 1;
- 		}
- 		else {
- 			return 0;
- 		}
- 	}
-	
+		if (a.ranking > b.ranking) {
+			return -1;
+		}
+		else if (a.ranking < b.ranking) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
 	private void extractTextSections(String postingText) {
 		String[] titleAndRest = postingText.split("Job Summary");
 		title = titleAndRest[0].trim();
 		String[] jobAndQualSummary = titleAndRest[1].split("Qualification Summary");
-		jobSummary = jobAndQualSummary[0].trim();
-		qualificationSummary = jobAndQualSummary[1].trim();
+		if(jobAndQualSummary.length>1){
+			jobSummary = jobAndQualSummary[0].trim();
+			qualificationSummary = jobAndQualSummary[1].trim();
+		}else{
+			jobSummary = jobAndQualSummary[0].trim();
+		}
 	}
- }
+}
