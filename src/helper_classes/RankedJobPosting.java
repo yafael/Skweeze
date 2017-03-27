@@ -9,9 +9,9 @@ public class RankedJobPosting {
 	private String category;
 
 	public RankedJobPosting(String postingText, Double ranking, String category) {	
-		extractTextSections(postingText);
 		this.ranking = ranking;
 		this.category = category;
+		extractTextSections(postingText);
 	}
 
 	public String getTitle() {

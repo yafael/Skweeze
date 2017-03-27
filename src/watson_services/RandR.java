@@ -83,12 +83,15 @@ public class RandR {
 		SolrQuery query = new SolrQuery(resumeText);
 		
 		for (ClassifiedClass c : topClasses) {
+			query.setHighlight(true);
+			query.setRows(1000);
 			SolrDocumentList response = solrClient.query(classToCluster.get(c.getName()), query).getResults();
+			//System.out.println(solrClient.query(classToCluster.get(c.getName()), query).getHighlighting());
 			int totalResults = Math.toIntExact(response.getNumFound());
-			for (int i = 0; i < totalResults && i < 10; i++) {
+			for (int i = 0; i < totalResults; i++) {
 				String text = getPostingText(response.get(i));
 				Double classConfidence = c.getConfidence();
-				float score = (totalResults - i)/totalResults;
+				float score = 1-((float)(i+1)/totalResults);
 				Double postingRanking = getWeightedRanking(classConfidence, score);
 				rankedJobPostings.add(new RankedJobPosting(text, postingRanking, c.getName()));
 			}
@@ -104,6 +107,6 @@ public class RandR {
 	}
 	
 	private Double getWeightedRanking(Double classConfidence, float score) {
-		return classConfidence + score;
+		return .5*classConfidence + score;
 	}
 }
