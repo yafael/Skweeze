@@ -1,17 +1,31 @@
 package helper_classes;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+
 public class RankedJobPosting {
 
+	private String id;
 	private String title;
 	private String jobSummary;
 	private String qualificationSummary;
+	private String url;
+	
 	private Double ranking;
 	private String category;
 
-	public RankedJobPosting(String postingText, Double ranking, String category) {	
-		extractTextSections(postingText);
+	public RankedJobPosting(String postingText, Double ranking, String category) {
+		extractTextSectionsAndId(postingText);
+		setDbInfo();
 		this.ranking = ranking;
 		this.category = category;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public String getTitle() {
@@ -24,6 +38,10 @@ public class RankedJobPosting {
 
 	public String getQualificationSummary() {
 		return qualificationSummary;
+	}
+	
+	public String getUrl() {
+		return url;
 	}
 
 	public Double getRanking() {
@@ -46,15 +64,50 @@ public class RankedJobPosting {
 		}
 	}
 
-	private void extractTextSections(String postingText) {
+	private void extractTextSectionsAndId(String postingText) {
 		String[] titleAndRest = postingText.split("Job Summary");
-		title = titleAndRest[0].trim();
+		String[] titleAndId = titleAndRest[0].split("%");
+		title = titleAndId[0].trim();
+		id = titleAndId[1].trim();
 		String[] jobAndQualSummary = titleAndRest[1].split("Qualification Summary");
-		if(jobAndQualSummary.length>1){
-			jobSummary = jobAndQualSummary[0].trim();
+		jobSummary = jobAndQualSummary[0].trim();
+		if (jobAndQualSummary.length>1) {
 			qualificationSummary = jobAndQualSummary[1].trim();
-		}else{
-			jobSummary = jobAndQualSummary[0].trim();
 		}
+	}
+	
+	// this method is to set all the extra data not contained in the Watson clusters
+	private void setDbInfo() {
+		Firebase db = DatabaseService.GetDatabaseReference();
+		
+		// query to get the specific object in the database corresponding to the current posting
+		Query idQuery = db.orderByKey().equalTo(id);
+		
+		/*
+		 * This whole thing basically runs the whole query and gives us back
+		 * results in the onDataChange method and an error in the onCancelled
+		 * method.
+		 */
+		idQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				
+				/*
+				 * We're iterating but really there's just one child since it's a unique ID.
+				 * Here is where we add more info later on (like location).
+				 */
+				for (DataSnapshot postingSnapshot : dataSnapshot.getChildren()) {
+					url = postingSnapshot.child("url").getValue().toString();
+				}
+				
+			}
+			
+			@Override
+			public void onCancelled(FirebaseError error) {
+				System.out.println(error);
+			}
+			
+		});
 	}
 }

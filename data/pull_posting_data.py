@@ -1,7 +1,17 @@
 import sys
 import requests
 import json
+import pyrebase
 from docx import Document
+
+db_config = {
+    'apiKey': 'AIzaSyBulMic4IzIFk7WRSbA1AjjQUrIESd-tuY',
+    'authDomain': 'skweeze-39a59.firebaseapp.com',
+    'databaseURL': 'https://skweeze-39a59.firebaseio.com',
+    'storageBucket': 'skweeze-39a59.appspot.com',
+    'messagingSenderId': '1095908864618'
+}
+firebase = pyrebase.initialize_app(db_config)
 
 output_folder = sys.argv[1]
 
@@ -56,6 +66,8 @@ headers = {'Host': host,
   'Authorization-Key': auth_key}
 
 def get_category_posting_info(category_code_params, category_title):
+    db = firebase.database()
+
     print('Fetching job posting info from {}...'.format(category_title))
 
     current_search_url = base_url + search_url + category_code_params + additional_params
@@ -67,17 +79,25 @@ def get_category_posting_info(category_code_params, category_title):
     number_of_results = 0
     for page in range(1,number_of_pages+1):
         for item in result_items:
-            title = item['MatchedObjectDescriptor']['PositionTitle']
+            posting_id = item['MatchedObjectId']
+            matched_object_descriptor = item['MatchedObjectDescriptor']
+            url = matched_object_descriptor['PositionURI']
+            title = matched_object_descriptor['PositionTitle']
             summary = item['MatchedObjectDescriptor']['UserArea']['Details']['JobSummary']
             qualifications = item['MatchedObjectDescriptor']['QualificationSummary']
 
             document = Document()
-            document.add_heading(title, 1)
+            document.add_heading('{}%{}'.format(title, posting_id), 1)
             document.add_heading('Job Summary', 2)
             document.add_paragraph(summary)
             document.add_heading('Qualification Summary', 2)
             document.add_paragraph(qualifications)
             document.save('{}/{}{}.docx'.format(output_folder, category_title[:3], number_of_results))
+
+            extra_info = {
+                'url': url
+            }
+            db.child('jobPostings').child(posting_id).set(extra_info)
 
             number_of_results = number_of_results + 1
             if number_of_results == 100:
