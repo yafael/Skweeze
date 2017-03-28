@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Skweeze | Results</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -95,6 +95,7 @@
                                         <div class="collapse" v-bind:id="index" aria-expanded="false">
                                             <p>{{posting.jobSummary}}</p>
                                             <p>{{posting.qualificationSummary}}</p>
+                                            <p><a v-bind:href="posting.url">Link</a></p>
                                         </div>
                                     </li>
                                 </template>
@@ -143,6 +144,7 @@
                     obj["title"] = currentResult.title;
                     obj["jobSummary"] = currentResult.jobSummary;
                     obj["qualificationSummary"] = currentResult.qualificationSummary;
+                    obj["url"] = currentResult.url;
                     postings.push(obj);
                 }
             });                 
