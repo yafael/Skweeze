@@ -33,7 +33,7 @@ public class RandR {
 	private static HttpSolrClient solrClient;
 
 	@SuppressWarnings("deprecation")
-	private static HttpSolrClient getSolrClient(String uri, String username, String password) {
+	public static HttpSolrClient getSolrClient(String uri, String username, String password) {
 		return new HttpSolrClient(service.getSolrUrl(clusterID), createHttpClient(uri, username, password));
 	}
 	
