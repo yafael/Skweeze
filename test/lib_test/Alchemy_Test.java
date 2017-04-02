@@ -53,4 +53,19 @@ public class Alchemy_Test {
 		assertTrue(keywords.contains("Neuroscience"));
 		assertTrue(keywords.contains("Programming language"));
 	}
+	@Test
+	public void testLoganResume() throws Exception {
+		String test = "QUALIFICATIONS"
+				+ "Languages: "
+				+ "- Proficient: Java, C#"
+				+ "- Familiar with: C, JavaScript, Python "
+				+ "Technologies/Frameworks: Firebase, HTML, CSS, Polymer, WPF, Git";
+		Concepts concepts = runService(test);
+		List<Concept> conceptList = concepts.getConcepts();
+		List<String> keywords = getKeywords(conceptList);
+		assertTrue(keywords.contains("HTML"));
+		assertTrue(keywords.contains("JavaScript"));
+		assertTrue(keywords.contains("C"));
+		assertTrue(keywords.contains("Java"));
+	}
 }
