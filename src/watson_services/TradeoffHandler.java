@@ -41,4 +41,7 @@ public class TradeoffHandler {
 		s.close();
 		return cities;
 	}
+	public void something(){
+		dilemma.getResolution().getSolutions();
+	}
 }
