@@ -1,7 +1,8 @@
-/bin/
-/target/
+bin/*
+target/*
 .DS_Store
 .project
 .classpath
-/.settings/*
-/credentials/*
+.settings/*
+credentials/*
+.pydevproject
