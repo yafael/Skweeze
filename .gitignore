@@ -1,8 +1,8 @@
 bin/*
 target/*
 .DS_Store
-.project
+./.project
 .classpath
-.settings/*
+./.settings/*
 credentials/*
 .pydevproject
