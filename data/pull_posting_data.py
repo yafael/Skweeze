@@ -83,11 +83,16 @@ def get_category_posting_info(category_code_params, category_title):
             matched_object_descriptor = item['MatchedObjectDescriptor']
             url = matched_object_descriptor['PositionURI']
             title = matched_object_descriptor['PositionTitle']
+            
+            locations = []
+            for location in matched_object_descriptor['PositionLocation']:
+                locations.append(location['LocationName'])
+            
             summary = item['MatchedObjectDescriptor']['UserArea']['Details']['JobSummary']
             qualifications = item['MatchedObjectDescriptor']['QualificationSummary']
 
             document = Document()
-            document.add_heading('{}%{}'.format(title, posting_id), 1)
+            document.add_heading('{} % {}'.format(title, posting_id), 1)
             document.add_heading('Job Summary', 2)
             document.add_paragraph(summary)
             document.add_heading('Qualification Summary', 2)
@@ -95,7 +100,8 @@ def get_category_posting_info(category_code_params, category_title):
             document.save('{}/{}{}.docx'.format(output_folder, category_title[:3], number_of_results))
 
             extra_info = {
-                'url': url
+                'url': url,
+                'locations': locations
             }
             db.child('jobPostings').child(posting_id).set(extra_info)
 

@@ -1,5 +1,7 @@
 package helper_classes;
 
+import java.util.ArrayList;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -13,6 +15,7 @@ public class RankedJobPosting {
 	private String jobSummary;
 	private String qualificationSummary;
 	private String url;
+	private String[] locations;
 	
 	private Double ranking;
 	private String category;
@@ -42,6 +45,10 @@ public class RankedJobPosting {
 	
 	public String getUrl() {
 		return url;
+	}
+	
+	public String[] getLocations() {
+		return locations;
 	}
 
 	public Double getRanking() {
@@ -99,6 +106,16 @@ public class RankedJobPosting {
 				 */
 				for (DataSnapshot postingSnapshot : dataSnapshot.getChildren()) {
 					url = postingSnapshot.child("url").getValue().toString();
+					
+					ArrayList<String> locationList = new ArrayList<>();
+					if (postingSnapshot.hasChild("locations")) {
+						for (DataSnapshot locationSnapshot : postingSnapshot.child("locations").getChildren()) {
+							//String locationName = locationSnapshot.getValue().toString().trim();
+							//System.out.println(locationName);
+							locationList.add(locationSnapshot.getValue().toString().trim());
+						}
+					}
+					locations = locationList.toArray(new String[0]);
 				}
 				
 			}

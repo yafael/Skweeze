@@ -95,7 +95,7 @@
                                         <div class="collapse" v-bind:id="index" aria-expanded="false">
                                             <p>{{posting.jobSummary}}</p>
                                             <p>{{posting.qualificationSummary}}</p>
-                                            <p><a v-bind:href="posting.url">Link</a></p>
+                                            <p><a v-bind:href="posting.url" target="_blank">More information</a></p>
                                         </div>
                                     </li>
                                 </template>
@@ -145,6 +145,7 @@
                     obj["jobSummary"] = currentResult.jobSummary;
                     obj["qualificationSummary"] = currentResult.qualificationSummary;
                     obj["url"] = currentResult.url;
+                    obj["locations"] = currentResult.locations;
                     postings.push(obj);
                 }
             });                 
