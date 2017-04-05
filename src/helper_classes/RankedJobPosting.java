@@ -17,10 +17,10 @@ public class RankedJobPosting {
 	private String url;
 	private String[] locations;
 	
-	private Double ranking;
+	private int ranking;
 	private String category;
 
-	public RankedJobPosting(String postingText, Double ranking, String category) {
+	public RankedJobPosting(String postingText, int ranking, String category) {
 		extractTextSectionsAndId(postingText);
 		setDbInfo();
 		this.ranking = ranking;
@@ -51,7 +51,7 @@ public class RankedJobPosting {
 		return locations;
 	}
 
-	public Double getRanking() {
+	public int getRanking() {
 		return ranking;
 	}
 

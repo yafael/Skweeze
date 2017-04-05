@@ -47,14 +47,14 @@ public class NLC_Test {
 		Classification returned = service.classify(classifierID, "psychology").execute();
 		assertTrue(returned.getClasses().get(0).getName().contains("Social Science"));
 	}
-//	@Test
-//	public void testClassificationTeacher(){
-//		String keywords = "Substitute teacher, School";
-//		Classification returned = service.classify(classifierID, keywords).execute();
-//		String clazz = returned.getClasses().get(0).getName();
-//		String message = "Result is \"" + clazz + "\" instead of \"Education\"";
-//		assertTrue(message, clazz.equals("Education"));
-//	}
+	@Test
+	public void testClassificationTeacher(){
+		String keywords = "Substitute teacher, School";
+		Classification returned = service.classify(classifierID, keywords).execute();
+		String clazz = returned.getClasses().get(0).getName();
+		String message = "Result is \"" + clazz + "\" instead of \"Education\"";
+		assertTrue(message, clazz.equals("Education"));
+	}
 	@Test
 	public void testClassificationNick(){
 		String keywords = "Cognitive science, Neuroscience, Programming language";

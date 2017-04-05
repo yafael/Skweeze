@@ -20,7 +20,7 @@ public class JobFinder {
 	
 	private final static int NLC_KEYWORD_COUNT = 30;
 	private final static int NLC_NUMBER_OF_CLASSES = 3;
-	private final static int RETRIEVE_AND_RANK_KEYWORD_COUNT = 35;
+	private final static int RETRIEVE_AND_RANK_KEYWORD_COUNT = 50;
 	
 	public static ArrayList<RankedJobPosting> searchForJobs(File resume) throws IOException, SolrServerException {
 		DocConverter dc = new DocConverter();

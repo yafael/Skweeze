@@ -92,7 +92,7 @@ public class RandR {
 				String text = getPostingText(response.get(i));
 				Double classConfidence = c.getConfidence();
 				float score = 1-((float)(i+1)/totalResults);
-				Double postingRanking = getWeightedRanking(classConfidence, score);
+				int postingRanking = getWeightedRanking(classConfidence, score);
 				rankedJobPostings.add(new RankedJobPosting(text, postingRanking, c.getName()));
 			}
 		}
@@ -106,7 +106,7 @@ public class RandR {
 		return (String) text.toArray()[1];
 	}
 	
-	private Double getWeightedRanking(Double classConfidence, float score) {
-		return .5*classConfidence + score;
+	private int getWeightedRanking(Double classConfidence, float score) {
+		return (int) Math.round(100*(.5*classConfidence + score)/1.5);
 	}
 }

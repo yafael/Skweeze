@@ -68,7 +68,10 @@ public class SkweezeService {
 	
 	private String getFileExtension(String fileName) {
 		String ext;
-		if (fileName.endsWith("docx")){
+		if (fileName.endsWith(".doc")) {
+			ext = ".doc";
+		}
+		else if (fileName.endsWith("docx")){
 			ext = ".docx";
 		}
 		else {

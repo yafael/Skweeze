@@ -170,14 +170,15 @@
 }
 
 .la-ball-grid-pulse.la-3x {
-    width: 108px;
-    height: 108px;
+	margin: auto;
+    width: 432px;
+    height: 432px;
 }
 
 .la-ball-grid-pulse.la-3x > div {
-    width: 24px;
-    height: 24px;
-    margin: 6px;
+    width: 96px;
+    height: 96px;
+    margin: 24px;
 }
 
 /*
