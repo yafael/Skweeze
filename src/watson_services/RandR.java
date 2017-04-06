@@ -1,4 +1,5 @@
 package watson_services;
+import helper_classes.JobPostingCreator;
 import helper_classes.RankedJobPosting;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 
 public class RandR {
-
+	
 	private ArrayList<RankedJobPosting> rankedJobPostings;
 	
 	private static RetrieveAndRank service;
@@ -76,8 +77,8 @@ public class RandR {
 		service.setUsernameAndPassword(creds.getUsername(), creds.getPassword());
 		rankedJobPostings = new ArrayList<RankedJobPosting>();
 	}
-
-	public ArrayList<RankedJobPosting> rank(String resumeText, List<ClassifiedClass> topClasses) throws IOException, SolrServerException{
+	
+	public ArrayList<RankedJobPosting> rank(String resumeText, List<ClassifiedClass> topClasses) throws IOException, SolrServerException {
 		Credentials creds = Credentials.loadCreds("credentials/randr_cred");
 		solrClient = getSolrClient(service.getSolrUrl(clusterID),creds.getUsername(),creds.getPassword());
 		SolrQuery query = new SolrQuery(resumeText);
@@ -93,7 +94,7 @@ public class RandR {
 				Double classConfidence = c.getConfidence();
 				float score = 1-((float)(i+1)/totalResults);
 				int postingRanking = getWeightedRanking(classConfidence, score);
-				rankedJobPostings.add(new RankedJobPosting(text, postingRanking, c.getName()));
+				rankedJobPostings.add(JobPostingCreator.createRankedJobPosting(text, postingRanking, c.getName()));
 			}
 		}
 		rankedJobPostings.sort(RankedJobPosting::comparison);

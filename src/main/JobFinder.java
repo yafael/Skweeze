@@ -41,6 +41,7 @@ public class JobFinder {
 		
 		String k = extractor.getKeywords(resumeText, RETRIEVE_AND_RANK_KEYWORD_COUNT);
 		RandR retrieve = new RandR();
+		
 		ArrayList<RankedJobPosting> topPostings = retrieve.rank(k, topClasses);
 		
 		return topPostings;
