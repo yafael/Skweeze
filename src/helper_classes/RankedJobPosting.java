@@ -1,12 +1,5 @@
 package helper_classes;
 
-import java.util.ArrayList;
-
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 public class RankedJobPosting {
 
@@ -19,44 +12,69 @@ public class RankedJobPosting {
 	
 	private int ranking;
 	private String category;
-
-	public RankedJobPosting(String postingText, int ranking, String category) {
-		extractTextSectionsAndId(postingText);
-		setDbInfo();
-		this.ranking = ranking;
-		this.category = category;
-	}
 	
 	public String getId() {
 		return id;
+	}
+	
+	protected void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
 		return title;
 	}
+	
+	protected void setTitle(String title) {
+		this.title = title;
+	}
 
 	public String getJobSummary() {
 		return jobSummary;
+	}
+	
+	protected void setJobSummary(String jobSummary) {
+		this.jobSummary = jobSummary;
 	}
 
 	public String getQualificationSummary() {
 		return qualificationSummary;
 	}
 	
+	protected void setQualificationSummary(String qualificationSummary) {
+		this.qualificationSummary = qualificationSummary;
+	}
+	
 	public String getUrl() {
 		return url;
+	}
+	
+	protected void setUrl(String url) {
+		this.url = url;
 	}
 	
 	public String[] getLocations() {
 		return locations;
 	}
+	
+	protected void setLocations(String[] locations) {
+		this.locations = locations;
+	}
 
 	public int getRanking() {
 		return ranking;
 	}
+	
+	protected void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
 
 	public String getCategory() {
 		return category;
+	}
+	
+	protected void setCategory(String category) {
+		this.category = category;
 	}
 
 	public static int comparison(RankedJobPosting a, RankedJobPosting b) {
@@ -69,62 +87,5 @@ public class RankedJobPosting {
 		else {
 			return 0;
 		}
-	}
-
-	private void extractTextSectionsAndId(String postingText) {
-		String[] titleAndRest = postingText.split("Job Summary");
-		String[] titleAndId = titleAndRest[0].split("%");
-		title = titleAndId[0].trim();
-		id = titleAndId[1].trim();
-		String[] jobAndQualSummary = titleAndRest[1].split("Qualification Summary");
-		jobSummary = jobAndQualSummary[0].trim();
-		if (jobAndQualSummary.length>1) {
-			qualificationSummary = jobAndQualSummary[1].trim();
-		}
-	}
-	
-	// this method is to set all the extra data not contained in the Watson clusters
-	private void setDbInfo() {
-		Firebase db = DatabaseService.GetDatabaseReference();
-		
-		// query to get the specific object in the database corresponding to the current posting
-		Query idQuery = db.orderByKey().equalTo(id);
-		
-		/*
-		 * This whole thing basically runs the whole query and gives us back
-		 * results in the onDataChange method and an error in the onCancelled
-		 * method.
-		 */
-		idQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-
-			@Override
-			public void onDataChange(DataSnapshot dataSnapshot) {
-				
-				/*
-				 * We're iterating but really there's just one child since it's a unique ID.
-				 * Here is where we add more info later on (like location).
-				 */
-				for (DataSnapshot postingSnapshot : dataSnapshot.getChildren()) {
-					url = postingSnapshot.child("url").getValue().toString();
-					
-					ArrayList<String> locationList = new ArrayList<>();
-					if (postingSnapshot.hasChild("locations")) {
-						for (DataSnapshot locationSnapshot : postingSnapshot.child("locations").getChildren()) {
-							//String locationName = locationSnapshot.getValue().toString().trim();
-							//System.out.println(locationName);
-							locationList.add(locationSnapshot.getValue().toString().trim());
-						}
-					}
-					locations = locationList.toArray(new String[0]);
-				}
-				
-			}
-			
-			@Override
-			public void onCancelled(FirebaseError error) {
-				System.out.println(error);
-			}
-			
-		});
 	}
 }
