@@ -82,13 +82,13 @@
                         		<div class="col-sm-3 col-md-3 pull-left">
             						<form class="navbar-form" role="search">
                 						<div class="input-group">
-                    						<input type="text" class="form-control" placeholder="Enter a place you want to work" name="q">
+                    						<input type="text" class="form-control" placeholder="Enter a place you want to work" name="q" v-model="locationSearch">
                 						</div>
             						</form>
         						</div>  
         					</nav>
                             
-                                <template v-for="(posting, index) in jobPostings">
+                                <template v-for="(posting, index) in filteredItems">
                                     <li class="list-group-item" data-toggle="collapse" v-bind:data-target="'#' + index" aria-expanded="false" v-bind:aria-controls="index">
                                         <h2 style="text-align:left;"><small><b>{{posting.title}}<span style="float:right;">{{posting.ranking}}% Match</span></b></small></h2>
                                         <div class="collapse" v-bind:id="index" aria-expanded="false">
@@ -129,7 +129,8 @@
     var postingList = new Vue({
         el: '#postingList',
         data: {
-            jobPostings: []
+            jobPostings: [],
+            locationSearch: ''
         },
         created: function() {
             var postings = this.jobPostings;
@@ -149,6 +150,18 @@
                     postings.push(obj);
                 }
             });                 
+        },
+        computed: {
+            filteredItems: function() {
+                return this.jobPostings.filter(posting => {
+                    var locationList = posting["locations"];
+                    for (var i = 0; i < locationList.length; i++) {
+                        if (locationList[i].toLowerCase().indexOf(this.locationSearch.toLowerCase()) !== -1) {
+                            return true;
+                        }
+                    }
+                });
+            }
         }
     })
     </script>
