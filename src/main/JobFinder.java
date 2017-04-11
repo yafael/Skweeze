@@ -43,7 +43,7 @@ public class JobFinder {
 		RandR retrieve = new RandR();
 		
 		ArrayList<RankedJobPosting> topPostings = retrieve.rank(k, topClasses);
-		
+
 		return topPostings;
 	}
 }
