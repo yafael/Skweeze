@@ -78,15 +78,12 @@
 
                             <ul v-else class="list-group">
                             <!-- Search Bar -->
-                   			<nav class="navbar navbar-default" role="navigation">
-                        		<div class="col-sm-3 col-md-3 pull-left">
-            						<form class="navbar-form" role="search">
-                						<div class="input-group">
-                    						<input type="text" class="form-control" placeholder="Enter a place you want to work" name="q" v-model="locationSearch">
-                						</div>
-            						</form>
-        						</div>  
-        					</nav>
+                    		<nav class="navbar navbar-default" role="navigation">
+            					<form class="navbar-form" role="search">
+                					<div class="input-group">
+                    					<input type="text" class="form-control" placeholder="Enter a location where you want to work (city or state)" name="q" v-model="locationSearch">
+            					</form>  
+        					</nav> 
                             
                                 <template v-for="(posting, index) in filteredItems">
                                     <li class="list-group-item" data-toggle="collapse" v-bind:data-target="'#' + index" aria-expanded="false" v-bind:aria-controls="index">
@@ -163,7 +160,7 @@
                 });
             }
         }
-    })
+    });
     </script>
     
 </body>
