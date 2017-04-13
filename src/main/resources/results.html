@@ -150,14 +150,17 @@
         },
         computed: {
             filteredItems: function() {
-                return this.jobPostings.filter(posting => {
-                    var locationList = posting["locations"];
-                    for (var i = 0; i < locationList.length; i++) {
-                        if (locationList[i].toLowerCase().indexOf(this.locationSearch.toLowerCase()) !== -1) {
-                            return true;
-                        }
+                return this.jobPostings.filter(this.filterFunction);
+            }
+        },
+        methods: {
+        	filterFunction: function(posting){
+                var locationList = posting["locations"];
+                for (var i = 0; i < locationList.length; i++) {
+                    if (locationList[i].toLowerCase().indexOf(this.locationSearch.toLowerCase()) !== -1) {
+                        return true;
                     }
-                });
+                }
             }
         }
     });
