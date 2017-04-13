@@ -89,6 +89,7 @@
                                     <li class="list-group-item" data-toggle="collapse" v-bind:data-target="'#' + index" aria-expanded="false" v-bind:aria-controls="index">
                                         <h2 style="text-align:left;"><small><b>{{posting.title}}<span style="float:right;">{{posting.ranking}}% Match</span></b></small></h2>
                                         <div class="collapse" v-bind:id="index" aria-expanded="false">
+                                        	<p><font size="5">Locations: {{posting.locations}}</font></p>
                                             <p>{{posting.jobSummary}}</p>
                                             <p>{{posting.qualificationSummary}}</p>
                                             <p><a v-bind:href="posting.url" target="_blank"><font size="6">More information</font></a></p>
@@ -122,7 +123,6 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-
     var postingList = new Vue({
         el: '#postingList',
         data: {
